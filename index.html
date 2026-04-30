@@ -506,6 +506,12 @@
     cherryDark:    '#a01a1a',
     cherryMid:     '#e83a3a',
     cherryShine:   '#ffaaa0',
+
+    enemyOutline:  '#2a061a',
+    enemyShadow:   '#7a1a3a',
+    enemyMid:      '#d83078',
+    enemyLight:    '#ff7ac0',
+    enemyEye:      '#ffd23a',
     cherryStem:    '#6a4a1a',
     cherryStemHi:  '#a07835',
     leafDark:      '#2a7a1a',
@@ -519,6 +525,7 @@
 
   // ─────────── STATE ───────────
   let snake, dir, nextDir, food, score, best, level, alive, paused, started;
+  let enemy, enemyDir, enemyTickAccum, enemyTickInterval;
   let tickAccum = 0;
   let tickInterval = 1 / 7.5;     // seconds per step
   let baseTickInterval = tickInterval;
@@ -548,18 +555,37 @@
     deathFlash = 0;
     flashWhite = 0;
     particles = [];
+    spawnEnemy();
     spawnFood();
     updateUI();
     showOverlay(
       'A R C A D E',
       'SERPENTINE',
-      'EAT THE CHERRIES.<br/>DODGE YOUR TAIL.<br/>BEAT THE HI-SCORE.',
+      'EAT THE CHERRIES.<br/>DODGE YOUR TAIL.<br/>FLEE THE PINK SERPENT.',
       '► PRESS ANY ARROW'
     );
   }
 
+  function spawnEnemy() {
+    // length 5, body fully on-grid, placed in the row opposite the player
+    const playerHead = snake[snake.length - 1];
+    const ey = playerHead.y > GRID / 2 ? 2 : GRID - 3;
+    enemy = [];
+    if (playerHead.x > GRID / 2) {
+      // player on right half → enemy enters from the left, moving right
+      enemyDir = { x: 1, y: 0 };
+      for (let i = 4; i >= 0; i--) enemy.push({ x: 4 - i, y: ey });
+    } else {
+      // player on left half → enemy enters from the right, moving left
+      enemyDir = { x: -1, y: 0 };
+      for (let i = 4; i >= 0; i--) enemy.push({ x: GRID - 5 + i, y: ey });
+    }
+    enemyTickAccum = 0;
+    enemyTickInterval = baseTickInterval * 1.35;
+  }
+
   function spawnFood() {
-    const occ = new Set(snake.map(s => s.x + ',' + s.y));
+    const occ = new Set([...snake, ...(enemy || [])].map(s => s.x + ',' + s.y));
     const free = [];
     for (let x = 0; x < GRID; x++)
       for (let y = 0; y < GRID; y++)
@@ -605,6 +631,10 @@
     for (let i = collideStart; i < snake.length; i++) {
       if (snake[i].x === nh.x && snake[i].y === nh.y) return die();
     }
+    // collide with enemy snake
+    for (let i = 0; i < enemy.length; i++) {
+      if (enemy[i].x === nh.x && enemy[i].y === nh.y) return die();
+    }
 
     snake.push(nh);
     if (willEat) {
@@ -635,6 +665,65 @@
       updateUI(true);
     } else {
       snake.shift();
+    }
+  }
+
+  function stepEnemy() {
+    const head = enemy[enemy.length - 1];
+    const target = snake[snake.length - 1];
+    const candidates = [
+      { x:  1, y:  0 },
+      { x: -1, y:  0 },
+      { x:  0, y:  1 },
+      { x:  0, y: -1 },
+    ];
+    // build occupancy: own body except tail (which moves), plus player body
+    const playerOcc = new Set(snake.map(s => s.x + ',' + s.y));
+    const enemyOcc = new Set();
+    for (let i = 1; i < enemy.length; i++) enemyOcc.add(enemy[i].x + ',' + enemy[i].y);
+
+    const scored = candidates
+      .filter(d => !(d.x === -enemyDir.x && d.y === -enemyDir.y))
+      .map(d => {
+        const nx = head.x + d.x;
+        const ny = head.y + d.y;
+        const key = nx + ',' + ny;
+        let cost = 0;
+        if (nx < 0 || nx >= GRID || ny < 0 || ny >= GRID) cost += 1000;
+        if (enemyOcc.has(key)) cost += 1000;
+        // landing on player kills the player — that's GOOD for the enemy
+        const eatsPlayer = playerOcc.has(key);
+        const dist = Math.abs(nx - target.x) + Math.abs(ny - target.y);
+        return { d, cost, dist, eatsPlayer, nx, ny };
+      });
+
+    // prefer killing player; otherwise minimize distance, avoid blocked tiles
+    scored.sort((a, b) => {
+      if (a.cost !== b.cost) return a.cost - b.cost;
+      if (a.eatsPlayer !== b.eatsPlayer) return a.eatsPlayer ? -1 : 1;
+      return a.dist - b.dist;
+    });
+
+    const choice = scored[0];
+    if (!choice || choice.cost >= 1000) {
+      // trapped — respawn elsewhere
+      spawnEnemy();
+      return;
+    }
+
+    enemyDir = choice.d;
+    const nh = { x: choice.nx, y: choice.ny };
+    enemy.push(nh);
+    enemy.shift();
+
+    // if enemy head landed on the player, player dies
+    for (let i = 0; i < snake.length; i++) {
+      if (snake[i].x === nh.x && snake[i].y === nh.y) { die(); return; }
+    }
+    // enemy can also gobble the cherry — denies it from the player
+    if (nh.x === food.x && nh.y === food.y) {
+      enemy.unshift({ x: enemy[0].x, y: enemy[0].y }); // grow by 1
+      spawnFood();
     }
   }
 
@@ -688,12 +777,20 @@
     // food
     drawCherry(food.x * TILE, food.y * TILE, pulseT);
 
+    // enemy snake (drawn under player so player feels in front)
+    for (let i = 0; i < enemy.length; i++) {
+      const seg = enemy[i];
+      const isHead = i === enemy.length - 1;
+      const isTail = i === 0;
+      drawSegment(seg.x * TILE, seg.y * TILE, isHead, isTail, enemyDir, 0, true);
+    }
+
     // snake
     for (let i = 0; i < snake.length; i++) {
       const seg = snake[i];
       const isHead = i === snake.length - 1;
       const isTail = i === 0;
-      drawSegment(seg.x * TILE, seg.y * TILE, isHead, isTail, dir, flashWhite);
+      drawSegment(seg.x * TILE, seg.y * TILE, isHead, isTail, dir, flashWhite, false);
     }
 
     // particles
@@ -720,12 +817,14 @@
   }
 
   // ─────────── SPRITES ───────────
-  function drawSegment(ox, oy, isHead, isTail, d, flash) {
-    // base palette swap on flash
-    const outline = P.snakeOutline;
-    const shadow  = P.snakeShadow;
-    const mid     = flash > 0.3 ? P.snakeFlash : P.snakeMid;
-    const light   = flash > 0.3 ? '#ffffff'    : P.snakeLight;
+  function drawSegment(ox, oy, isHead, isTail, d, flash, isEnemy) {
+    // base palette swap on flash; enemy uses red/pink palette
+    const outline = isEnemy ? P.enemyOutline : P.snakeOutline;
+    const shadow  = isEnemy ? P.enemyShadow  : P.snakeShadow;
+    const mid     = isEnemy ? P.enemyMid     : (flash > 0.3 ? P.snakeFlash : P.snakeMid);
+    const light   = isEnemy ? P.enemyLight   : (flash > 0.3 ? '#ffffff'    : P.snakeLight);
+    const eyeOuter = isEnemy ? P.eyeDark : P.eyeDark;
+    const eyeInner = isEnemy ? P.enemyEye : P.eyeLight;
 
     // 16x16 rounded body — cells x1..14 wide vertically, y1..14 horizontally
     // outline
@@ -777,9 +876,9 @@
       else                 eyes = [[5, 10], [10, 10]];
 
       for (const [ex, ey] of eyes) {
-        ctx.fillStyle = P.eyeDark;
+        ctx.fillStyle = eyeOuter;
         ctx.fillRect(ox + ex, oy + ey, 2, 2);
-        ctx.fillStyle = P.eyeLight;
+        ctx.fillStyle = eyeInner;
         ctx.fillRect(ox + ex, oy + ey, 1, 1);
       }
 
@@ -876,6 +975,14 @@
       while (tickAccum >= tickInterval) {
         tickAccum -= tickInterval;
         step();
+        if (!alive) break;
+      }
+      // enemy ticks on its own slower clock; speeds up with level
+      const eInterval = Math.max(1 / 13, baseTickInterval * 1.35 - (level - 1) * 0.014);
+      enemyTickAccum += dt;
+      while (alive && enemyTickAccum >= eInterval) {
+        enemyTickAccum -= eInterval;
+        stepEnemy();
         if (!alive) break;
       }
     }
