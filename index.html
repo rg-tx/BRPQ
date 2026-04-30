@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#07071a" />
 <title>SERPENTINE — 8-BIT EDITION</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -292,6 +295,10 @@
     height: auto;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    touch-action: none;             /* swipe controls game, not page */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   /* ─────────── OVERLAY ─────────── */
@@ -356,9 +363,98 @@
     50%, 100% { opacity: 0.15; }
   }
 
-  /* ─────────── CONTROL BAR ─────────── */
-  .controls {
+  /* ─────────── TOUCH CONTROLS ─────────── */
+  .touch-controls {
     margin-top: 18px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+  }
+
+  .dpad {
+    display: grid;
+    grid-template-areas:
+      ".  up .  "
+      "lt ct rt "
+      ".  dn .  ";
+    grid-template-columns: repeat(3, 52px);
+    grid-template-rows:    repeat(3, 52px);
+    gap: 4px;
+    justify-self: start;
+  }
+  .dpad-btn {
+    background: linear-gradient(180deg, #1a1238 0%, #000 100%);
+    color: var(--c-yellow);
+    border: 3px solid var(--c-rivet);
+    box-shadow: 3px 3px 0 #000, inset 0 2px 0 rgba(255,255,255,0.08);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 60ms steps(2), box-shadow 60ms;
+  }
+  .dpad-btn:active,
+  .dpad-btn.pressed {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000, inset 0 2px 0 rgba(255,255,255,0.04);
+    color: var(--c-yellow-hi);
+  }
+  .dpad-btn.up    { grid-area: up; }
+  .dpad-btn.down  { grid-area: dn; }
+  .dpad-btn.left  { grid-area: lt; }
+  .dpad-btn.right { grid-area: rt; }
+  .dpad-center {
+    grid-area: ct;
+    background: #000;
+    border: 3px solid var(--c-rivet);
+    box-shadow: inset 2px 2px 0 #1a1340, inset -2px -2px 0 var(--c-rivet-hi);
+  }
+
+  .action-buttons {
+    display: grid;
+    gap: 8px;
+    justify-self: end;
+  }
+  .action-btn {
+    background: #000;
+    color: var(--c-cream);
+    border: 3px solid var(--c-rivet);
+    box-shadow: 3px 3px 0 #000;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    padding: 10px 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    min-width: 118px;
+    text-align: center;
+    transition: transform 60ms steps(2), box-shadow 60ms;
+  }
+  .action-btn:hover { color: var(--c-yellow-hi); }
+  .action-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+  }
+  .action-btn.sound-toggle { color: var(--c-cyan); }
+  .action-btn.sound-toggle.off { color: var(--c-mute); }
+  .action-btn#pauseBtn { color: var(--c-yellow); }
+  .action-btn#restartBtn { color: var(--c-pink); }
+
+  /* ─────────── KEYBOARD HINTS (desktop) ─────────── */
+  .keyboard-hints {
+    margin-top: 14px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -370,8 +466,8 @@
     color: var(--c-cream);
     padding: 0 6px;
   }
-  .controls span { display: inline-flex; align-items: center; gap: 6px; }
-  .controls kbd {
+  .keyboard-hints span { display: inline-flex; align-items: center; gap: 6px; }
+  .keyboard-hints kbd {
     display: inline-block;
     padding: 4px 6px;
     background: #000;
@@ -383,23 +479,7 @@
     min-width: 16px;
     text-align: center;
   }
-  .controls kbd.wide { padding: 4px 8px; }
-
-  .sound-toggle {
-    background: #000;
-    color: var(--c-cyan);
-    border: 2px solid var(--c-rivet);
-    box-shadow: 2px 2px 0 #000;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    letter-spacing: 0.15em;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: transform 80ms steps(2);
-  }
-  .sound-toggle:hover { transform: translate(-1px, -1px); }
-  .sound-toggle:active { transform: translate(1px, 1px); box-shadow: none; }
-  .sound-toggle.off { color: var(--c-mute); }
+  .keyboard-hints kbd.wide { padding: 4px 8px; }
 
   /* ─────────── FOOTER ─────────── */
   .footer {
@@ -412,11 +492,40 @@
     padding-left: 0.4em;
   }
 
+  @media (max-width: 640px) {
+    .keyboard-hints { display: none; }
+  }
+
   @media (max-width: 540px) {
+    body { padding: 16px 8px; }
     .cabinet { padding: 22px 14px 16px; }
     .marquee { padding: 12px 8px; }
     .logo-row { gap: 8px; }
-    .controls { gap: 10px; }
+    .touch-controls {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 14px;
+    }
+    .dpad { justify-self: center; }
+    .action-buttons {
+      justify-self: center;
+      grid-auto-flow: column;
+      gap: 8px;
+    }
+    .action-btn {
+      min-width: 0;
+      padding: 10px 10px;
+      font-size: 8px;
+      letter-spacing: 0.12em;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .dpad {
+      grid-template-columns: repeat(3, 56px);
+      grid-template-rows:    repeat(3, 56px);
+    }
+    .dpad-btn { font-size: 18px; }
   }
 </style>
 </head>
@@ -465,11 +574,25 @@
       </div>
     </div>
 
-    <div class="controls">
+    <div class="touch-controls" role="group" aria-label="Game controls">
+      <div class="dpad" role="group" aria-label="Movement">
+        <button class="dpad-btn up"    type="button" data-dir="up"    aria-label="Move up">▲</button>
+        <button class="dpad-btn left"  type="button" data-dir="left"  aria-label="Move left">◀</button>
+        <span class="dpad-center" aria-hidden="true"></span>
+        <button class="dpad-btn right" type="button" data-dir="right" aria-label="Move right">▶</button>
+        <button class="dpad-btn down"  type="button" data-dir="down"  aria-label="Move down">▼</button>
+      </div>
+      <div class="action-buttons">
+        <button class="action-btn" id="pauseBtn"   type="button" aria-label="Start or pause">PAUSE</button>
+        <button class="action-btn" id="restartBtn" type="button" aria-label="Restart game">RESTART</button>
+        <button class="action-btn sound-toggle" id="soundToggle" type="button" aria-pressed="false">♪ SND·OFF</button>
+      </div>
+    </div>
+
+    <div class="keyboard-hints">
       <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd>&nbsp;MOVE</span>
       <span><kbd class="wide">SPC</kbd>&nbsp;PAUSE</span>
       <span><kbd>R</kbd>&nbsp;RESTART</span>
-      <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">♪ SND·OFF</button>
     </div>
 
     <div class="footer">© 198X&nbsp;&nbsp;·&nbsp;&nbsp;ALL CIRCUITS RESERVED</div>
@@ -562,7 +685,7 @@
       'A R C A D E',
       'SERPENTINE',
       'EAT THE CHERRIES.<br/>DODGE YOUR TAIL.<br/>FLEE THE PINK SERPENT.',
-      '► PRESS ANY ARROW'
+      '► TAP OR PRESS ANY ARROW'
     );
   }
 
@@ -739,7 +862,7 @@
     const text = score > 0
       ? `SCORE&nbsp;&nbsp;${String(score).padStart(4,'0')}<br/>LEVEL&nbsp;&nbsp;${String(level).padStart(2,'0')}`
       : 'NICE TRY, PLAYER 1';
-    showOverlay('GAME OVER', 'GAME OVER', text, '► PRESS R TO CONTINUE');
+    showOverlay('GAME OVER', 'GAME OVER', text, '► TAP RESTART OR PRESS R');
   }
 
   // ─────────── DRAW ───────────
@@ -1087,7 +1210,7 @@
       } else {
         paused = !paused;
         if (paused) {
-          showOverlay('PAUSED', 'PAUSED', '— TAKE A BREATHER —', '► PRESS SPACE');
+          showOverlay('PAUSED', 'PAUSED', '— TAKE A BREATHER —', '► TAP TO RESUME');
         } else {
           hideOverlay();
         }
@@ -1106,7 +1229,7 @@
     }
   });
 
-  // touch / swipe
+  // touch / swipe on the canvas itself
   let touchStart = null;
   canvas.addEventListener('touchstart', (e) => {
     if (e.touches.length === 1) {
@@ -1118,18 +1241,65 @@
     const t = e.changedTouches[0];
     const dx = t.clientX - touchStart.x;
     const dy = t.clientY - touchStart.y;
-    if (Math.abs(dx) < 16 && Math.abs(dy) < 16) { touchStart = null; return; }
+    const isTap = Math.abs(dx) < 16 && Math.abs(dy) < 16;
+    touchStart = null;
+    if (!alive) return;
+    if (isTap) {
+      // tapping the screen toggles start/pause — handy on mobile
+      if (!started) { started = true; hideOverlay(); return; }
+      paused = !paused;
+      if (paused) showOverlay('PAUSED', 'PAUSED', '— TAKE A BREATHER —', '► TAP TO RESUME');
+      else hideOverlay();
+      return;
+    }
     let nd;
     if (Math.abs(dx) > Math.abs(dy)) nd = dx > 0 ? dirMap.ArrowRight : dirMap.ArrowLeft;
     else                              nd = dy > 0 ? dirMap.ArrowDown  : dirMap.ArrowUp;
-    if (alive) {
-      if (applyDir(nd)) {
-        if (!started) { started = true; hideOverlay(); }
-        if (paused)   { paused  = false; hideOverlay(); }
-      }
-    }
-    touchStart = null;
+    applyDir(nd);
+    if (!started) { started = true; hideOverlay(); }
+    if (paused)   { paused  = false; hideOverlay(); }
   }, { passive: true });
+
+  // on-screen D-pad
+  const dpadDirs = {
+    up:    { x: 0, y: -1 },
+    down:  { x: 0, y:  1 },
+    left:  { x: -1, y: 0 },
+    right: { x:  1, y: 0 },
+  };
+  document.querySelectorAll('.dpad-btn').forEach((btn) => {
+    const nd = dpadDirs[btn.dataset.dir];
+    const press = (e) => {
+      e.preventDefault();
+      ensureAudio();
+      if (!alive) return;
+      applyDir(nd);
+      if (!started) { started = true; hideOverlay(); }
+      if (paused)   { paused  = false; hideOverlay(); }
+    };
+    btn.addEventListener('pointerdown', press);
+    btn.addEventListener('contextmenu', (e) => e.preventDefault());
+  });
+
+  // on-screen action buttons
+  const pauseBtn   = document.getElementById('pauseBtn');
+  const restartBtn = document.getElementById('restartBtn');
+
+  pauseBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    ensureAudio();
+    if (!alive) { reset(); return; }
+    if (!started) { started = true; hideOverlay(); return; }
+    paused = !paused;
+    if (paused) showOverlay('PAUSED', 'PAUSED', '— TAKE A BREATHER —', '► TAP TO RESUME');
+    else hideOverlay();
+  });
+
+  restartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    ensureAudio();
+    reset();
+  });
 
   // first user gesture enables audio engine (button is independent toggle)
   document.addEventListener('keydown', () => { ensureAudio(); }, { once: true });
