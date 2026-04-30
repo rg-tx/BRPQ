@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lemonade Annual · 2025 · Sunny Side Lemonade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF5E8;
+    --paper-2:#F2EAD3;
+    --ink:#1A1410;
+    --ink-soft:#5C4F42;
+    --rule:#1A1410;
+    --citrus:#F2BB1E;
+    --citrus-deep:#D99B0E;
+    --moss:#1E4A3D;
+    --rust:#B5421B;
+    --plum:#5B2B3D;
+    --display: "Fraunces", "Times New Roman", serif;
+    --body: "Newsreader", "Georgia", serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink)}
+  body{
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.55;
+    font-weight:380;
+    letter-spacing:.005em;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(242,187,30,.08), transparent 60%),
+      radial-gradient(900px 500px at -10% 40%, rgba(30,74,61,.05), transparent 60%),
+      var(--paper);
+    background-attachment: fixed;
+  }
+  /* Subtle paper grain */
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+    opacity:.35; mix-blend-mode:multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .page{position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:28px 36px 120px}
+  @media (max-width:760px){ .page{padding:18px 20px 80px} }
+
+  /* ─── Masthead ─── */
+  .masthead{
+    display:flex; align-items:center; justify-content:space-between;
+    border-top:3px double var(--ink); border-bottom:1px solid var(--ink);
+    padding:12px 0 10px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink);
+  }
+  .masthead .seal{
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .seal svg{display:block}
+  .masthead .meta{display:flex; gap:24px}
+  .masthead .meta span{display:inline-block}
+  @media (max-width:680px){ .masthead{flex-direction:column; gap:8px; align-items:flex-start} .masthead .meta{flex-wrap:wrap; gap:10px 18px} }
+
+  /* ─── Hero ─── */
+  .hero{
+    display:grid; grid-template-columns: 1.15fr .85fr; gap:48px;
+    border-bottom:1px solid var(--ink);
+    padding:56px 0 40px;
+    align-items:end;
+  }
+  @media (max-width:900px){ .hero{grid-template-columns:1fr; gap:24px; padding:36px 0 28px} }
+  .hero .kicker{
+    font-family:var(--mono); text-transform:uppercase; letter-spacing:.2em; font-size:11px;
+    color:var(--rust); font-weight:500;
+  }
+  .hero h1{
+    font-family:var(--display);
+    font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+    font-weight:380;
+    font-size: clamp(48px, 8.4vw, 116px);
+    line-height: .92;
+    letter-spacing: -0.025em;
+    margin: 14px 0 18px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    color:var(--moss);
+  }
+  .hero h1 .swash{ color:var(--citrus-deep); font-style:italic; }
+  .hero .deck{
+    font-family:var(--body); font-size: clamp(17px, 1.3vw, 20px); font-weight:340;
+    color:var(--ink-soft); max-width:48ch;
+  }
+  .hero .right{
+    border-left:1px solid var(--ink);
+    padding-left:36px;
+    align-self:stretch;
+    display:flex; flex-direction:column; justify-content:flex-end;
+  }
+  @media (max-width:900px){ .hero .right{border-left:none; padding-left:0; border-top:1px solid var(--ink); padding-top:18px} }
+  .big-num{
+    font-family:var(--display);
+    font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+    font-weight:300;
+    font-size: clamp(64px, 10vw, 132px);
+    line-height:.9; letter-spacing:-0.03em;
+    color:var(--ink);
+  }
+  .big-num .currency{ font-size:.5em; vertical-align:top; line-height:1; color:var(--citrus-deep); margin-right:.05em }
+  .big-num .small{ font-size:.45em; color:var(--ink-soft); display:block; margin-top:8px;
+    font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase; font-weight:500; }
+
+  /* ─── Section header ─── */
+  .section{ padding:64px 0 16px; border-bottom:1px solid var(--ink); }
+  .section:last-of-type{ border-bottom:none }
+  .section-head{
+    display:flex; align-items:baseline; gap:20px; margin-bottom:28px;
+  }
+  .section-num{
+    font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--rust);
+  }
+  .section-title{
+    font-family:var(--display); font-weight:330; letter-spacing:-0.015em;
+    font-size: clamp(28px, 3.4vw, 44px); margin:0;
+    font-variation-settings: "opsz" 72, "SOFT" 30;
+  }
+  .section-title em{ font-style:italic; color:var(--moss); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; }
+
+  /* ─── At-a-glance strip ─── */
+  .glance{
+    display:grid; grid-template-columns: repeat(5, 1fr);
+    border:1px solid var(--ink); margin-top:36px;
+    background: var(--paper);
+  }
+  @media (max-width:900px){ .glance{grid-template-columns: repeat(2, 1fr)} }
+  .glance .stat{
+    padding:22px 20px;
+    border-right:1px solid var(--ink);
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .glance .stat:last-child{border-right:none}
+  @media (max-width:900px){ .glance .stat{border-right:none; border-bottom:1px solid var(--ink)} .glance .stat:nth-child(2n){border-right:none} }
+  .glance .label{
+    font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--ink-soft); font-weight:500;
+  }
+  .glance .value{
+    font-family:var(--display); font-size: clamp(28px, 3vw, 40px); font-weight:340;
+    line-height:1; letter-spacing:-0.02em;
+    font-variation-settings: "opsz" 72, "SOFT" 20;
+  }
+  .glance .sub{
+    font-family:var(--body); font-size:13px; color:var(--ink-soft); font-style:italic;
+  }
+
+  /* ─── Findings ─── */
+  .findings{
+    display:grid; grid-template-columns: repeat(12, 1fr); gap:24px;
+    margin-top:24px;
+  }
+  .finding{
+    grid-column: span 6;
+    padding:28px 28px 30px;
+    border:1px solid var(--ink);
+    background: var(--paper);
+    position:relative;
+    display:flex; flex-direction:column; gap:14px;
+    min-height: 260px;
+  }
+  .finding.span-12{ grid-column: span 12 }
+  .finding.span-7{ grid-column: span 7 }
+  .finding.span-5{ grid-column: span 5 }
+  .finding.span-8{ grid-column: span 8 }
+  .finding.span-4{ grid-column: span 4 }
+  @media (max-width:900px){ .finding, .finding.span-12, .finding.span-7, .finding.span-5, .finding.span-8, .finding.span-4 { grid-column: span 12 } }
+  .finding .tag{
+    font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--rust); font-weight:500;
+    display:flex; align-items:center; gap:8px;
+  }
+  .finding .tag::before{
+    content:""; width:18px; height:1px; background:var(--rust);
+  }
+  .finding h3{
+    margin:0;
+    font-family:var(--display); font-weight:330;
+    font-size: clamp(22px, 2.4vw, 30px); line-height:1.05;
+    letter-spacing:-0.012em;
+    font-variation-settings: "opsz" 72, "SOFT" 40;
+  }
+  .finding h3 em{ font-style:italic; color:var(--moss); }
+  .finding p{
+    margin:0; color:var(--ink-soft); font-size:15.5px; line-height:1.55;
+  }
+  .finding p strong{ color:var(--ink); font-weight:500; font-style:italic; }
+  .finding .viz{ margin-top:auto; padding-top:8px }
+  .finding.accent-citrus{ background: linear-gradient(180deg, #FCE9A5 0%, #F8DD80 100%); border-color:var(--ink); }
+  .finding.accent-moss{ background: var(--moss); color:#F7EFD7; border-color:var(--moss) }
+  .finding.accent-moss h3, .finding.accent-moss h3 em{ color:#F7EFD7 }
+  .finding.accent-moss p{ color:#D7CFB8 }
+  .finding.accent-moss .tag{ color:var(--citrus) }
+  .finding.accent-moss .tag::before{ background: var(--citrus) }
+
+  /* ─── Daily revenue chart ─── */
+  .chart-wrap{ margin-top:28px; border:1px solid var(--ink); padding:20px 16px 8px; background:var(--paper); }
+  .chart-wrap svg{ display:block; width:100%; height:auto }
+  .chart-legend{
+    display:flex; gap:18px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft); padding: 6px 8px 14px;
+  }
+  .chart-legend span{ display:inline-flex; align-items:center; gap:6px }
+  .chart-legend i{ display:inline-block; width:14px; height:14px }
+
+  /* ─── Stand cards ─── */
+  .stands{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;
+    margin-top:28px;
+  }
+  @media (max-width:900px){ .stands{grid-template-columns: repeat(2, 1fr)} }
+  @media (max-width:560px){ .stands{grid-template-columns: 1fr} }
+  .stand-card{
+    border:1px solid var(--ink); padding:18px;
+    display:flex; flex-direction:column; gap:10px;
+    position:relative; overflow:hidden;
+  }
+  .stand-card .rank{
+    position:absolute; top:10px; right:14px;
+    font-family:var(--display); font-style:italic; font-weight:300;
+    font-size:64px; line-height:1; color: rgba(26,20,16,.10);
+  }
+  .stand-card.gold{ background: linear-gradient(180deg, #FCE9A5, #F8DD80) }
+  .stand-card.gold .rank{ color: rgba(184,67,27,.18) }
+  .stand-card .name{
+    font-family:var(--display); font-weight:380; font-size:22px; line-height:1.1; letter-spacing:-0.01em;
+    font-variation-settings:"opsz" 72,"SOFT" 30; max-width: 90%;
+  }
+  .stand-card .type{ font-family:var(--body); font-style:italic; font-size:13px; color:var(--ink-soft) }
+  .stand-card hr{ border:none; border-top:1px solid var(--ink); margin:6px 0 0; opacity:.6 }
+  .stand-card .row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .stand-card .row b{ font-family:var(--display); font-weight:380; font-style:normal; font-size:22px; color:var(--ink); letter-spacing:-0.01em; text-transform:none; font-variation-settings:"opsz" 72; }
+  .stand-card .payback{
+    margin-top:6px;
+    border-top:1px dashed var(--ink); padding-top:10px;
+    font-family:var(--body); font-style:italic; font-size:14px; color:var(--ink);
+  }
+  .stand-card .payback b{ font-style:normal; font-family:var(--mono); font-weight:600; color:var(--rust) }
+
+  /* ─── Products table ─── */
+  .products{
+    margin-top:28px; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+  }
+  .product-row{
+    display:grid; grid-template-columns: 30px 1.7fr 110px 110px 1fr;
+    align-items:center;
+    padding:14px 4px;
+    border-bottom:1px solid rgba(26,20,16,.18);
+    gap:14px;
+  }
+  .product-row:last-child{border-bottom:none}
+  .product-row .rank{
+    font-family:var(--mono); font-size:11px; color:var(--ink-soft); letter-spacing:.1em;
+  }
+  .product-row .name{
+    font-family:var(--display); font-weight:360; font-size:19px; letter-spacing:-0.01em;
+    font-variation-settings:"opsz" 72,"SOFT" 30;
+  }
+  .product-row .name small{ display:block; font-family:var(--mono); font-size:10px; color:var(--ink-soft); letter-spacing:.12em; text-transform:uppercase; margin-top:2px }
+  .product-row .qty, .product-row .rev{ font-family:var(--mono); font-size:14px; text-align:right }
+  .product-row .bar{
+    height:8px; background: rgba(26,20,16,.08); position:relative;
+  }
+  .product-row .bar i{
+    position:absolute; left:0; top:0; bottom:0; background:var(--citrus); border-right:2px solid var(--citrus-deep);
+  }
+  .product-row.dim .name, .product-row.dim .qty, .product-row.dim .rev{ color:var(--ink-soft); }
+  .product-row.dim .bar i{ background: var(--rust); opacity:.55 }
+  .product-row.dim::after{
+    content: "marginal"; font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--rust); position:absolute; transform: translateY(-22px) translateX(0); pointer-events:none;
+  }
+  @media (max-width:760px){
+    .product-row{ grid-template-columns: 24px 1fr 80px; }
+    .product-row .qty, .product-row .bar{ display:none }
+  }
+
+  /* ─── Pull quote ─── */
+  .pull{
+    grid-column: span 12;
+    padding: 50px 32px;
+    text-align:center;
+    border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+    margin: 36px 0 0;
+  }
+  .pull blockquote{
+    margin:0;
+    font-family:var(--display); font-style:italic; font-weight:300;
+    font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;
+    font-size: clamp(28px, 4vw, 52px); line-height:1.08; letter-spacing:-0.015em;
+    color:var(--ink);
+  }
+  .pull blockquote::before{ content:"“"; color:var(--citrus-deep); font-style:normal; margin-right:.05em }
+  .pull blockquote::after{ content:"”"; color:var(--citrus-deep); font-style:normal; margin-left:.05em }
+  .pull .attribution{
+    margin-top:16px; font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);
+  }
+
+  /* ─── Hour & DOW small charts ─── */
+  .pair{
+    display:grid; grid-template-columns: 1fr 1fr; gap:18px; margin-top:18px;
+  }
+  @media (max-width:760px){ .pair{grid-template-columns:1fr} }
+  .mini-chart{ border:1px solid var(--ink); padding:14px 16px 10px; background: var(--paper); }
+  .mini-chart .lbl{ font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px }
+
+  /* ─── Colophon ─── */
+  .colophon{
+    margin-top:64px; padding:28px 0 0;
+    border-top:3px double var(--ink);
+    display:grid; grid-template-columns: 2fr 1fr; gap:36px;
+    font-size:14px; color:var(--ink-soft); line-height:1.6;
+  }
+  @media (max-width:680px){ .colophon{grid-template-columns:1fr} }
+  .colophon h4{
+    font-family:var(--mono); font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ink); margin: 0 0 8px;
+  }
+  .colophon .sig{
+    font-family:var(--display); font-style:italic; font-size:24px; color:var(--ink);
+    font-variation-settings:"opsz" 72,"SOFT" 80,"WONK" 1; line-height:1.1;
+  }
+
+  /* Decorative drop-cap on intro paragraph */
+  .leadp{ font-family:var(--body); font-size:18px; line-height:1.55; max-width:62ch; color:var(--ink-soft); margin: 0 0 16px;}
+  .leadp::first-letter{
+    font-family:var(--display); font-style:italic;
+    font-variation-settings:"opsz" 144,"SOFT" 100,"WONK" 1;
+    float:left; font-size:64px; line-height:.85; padding: 6px 10px 0 0; color:var(--moss); font-weight:330;
+  }
+
+  /* Citrus chip */
+  .chip{
+    display:inline-block; padding:2px 8px;
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.16em;
+    background: var(--citrus); color:var(--ink); border:1px solid var(--ink);
+  }
+  .chip.moss{ background:var(--moss); color:#F7EFD7; border-color:var(--moss) }
+  .chip.rust{ background:var(--rust); color:#FAF5E8; border-color:var(--rust) }
+
+  /* Stat callout (used inside findings) */
+  .callout{
+    font-family:var(--display); font-weight:340; line-height:1; letter-spacing:-0.02em;
+    font-variation-settings:"opsz" 144,"SOFT" 30;
+    font-size: clamp(38px, 5vw, 72px);
+    color:var(--ink);
+  }
+  .callout .unit{ font-size:.4em; color:var(--ink-soft); margin-left:6px; font-weight:380 }
+  .accent-moss .callout{ color:var(--citrus) }
+  .accent-citrus .callout{ color:var(--ink) }
+
+  /* tiny separator */
+  .ornament{
+    text-align:center; margin: 28px auto 0; color:var(--citrus-deep); letter-spacing: .8em;
+    font-family:var(--display); font-style:italic; font-size:18px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ───────── MASTHEAD ───────── -->
+  <header class="masthead">
+    <div class="seal">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <circle cx="11" cy="11" r="10" fill="none" stroke="#1A1410" stroke-width="1.2"/>
+        <g stroke="#1A1410" stroke-width="1" fill="none">
+          <line x1="11" y1="2" x2="11" y2="20"/>
+          <line x1="2" y1="11" x2="20" y2="11"/>
+          <line x1="4.5" y1="4.5" x2="17.5" y2="17.5"/>
+          <line x1="17.5" y1="4.5" x2="4.5" y2="17.5"/>
+        </g>
+        <circle cx="11" cy="11" r="3" fill="#F2BB1E" stroke="#1A1410" stroke-width="1"/>
+      </svg>
+      <span>Sunny Side Lemonade · Madison, WI</span>
+    </div>
+    <div class="meta">
+      <span>Vol. I</span>
+      <span>The Lemonade Annual</span>
+      <span>2025 Edition</span>
+      <span>Price: 5¢</span>
+    </div>
+  </header>
+
+  <!-- ───────── HERO ───────── -->
+  <section class="hero">
+    <div>
+      <div class="kicker">— A Year In Review —</div>
+      <h1>We poured<br><em>forty-one&nbsp;thousand</em><br>cups of <span class="swash">lemonade</span>.</h1>
+      <p class="deck">The 2025 numbers, what they mean, and the things you wouldn't notice from glancing at the spreadsheet. A family business, four stands, one summer, and a strawberry breakthrough.</p>
+    </div>
+    <div class="right">
+      <div class="big-num">
+        <span class="currency">$</span>163,876
+        <span class="small">Total revenue · 24,655 transactions · 41,193 items</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── AT A GLANCE ───────── -->
+  <section class="section" style="border-bottom:none; padding-top: 28px">
+    <div class="glance">
+      <div class="stat">
+        <div class="label">Gross profit</div>
+        <div class="value">$130,751</div>
+        <div class="sub">79.8% gross margin</div>
+      </div>
+      <div class="stat">
+        <div class="label">Best day</div>
+        <div class="value">$1,998</div>
+        <div class="sub">Sat July 5 · 84°F · sunny</div>
+      </div>
+      <div class="stat">
+        <div class="label">Avg. ticket</div>
+        <div class="value">$6.65</div>
+        <div class="sub">1.67 items per visit</div>
+      </div>
+      <div class="stat">
+        <div class="label">Peak share</div>
+        <div class="value">61.8%</div>
+        <div class="sub">earned May–Sep</div>
+      </div>
+      <div class="stat">
+        <div class="label">Stands · staff</div>
+        <div class="value">4 · 6</div>
+        <div class="sub">two leads are family</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── THE YEAR IN CUPS (CHART) ───────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 01 — The Year, Day by Day</span>
+    </div>
+    <h2 class="section-title" style="max-width:22ch">The shape of a Madison summer, drawn in <em>lemonade</em>.</h2>
+    <p class="leadp">Each vertical mark below is a single day's revenue. The color of each day reflects how warm it was — pale citrus on cool days, deep marigold when the high broke 80°F. Two events to notice: the pencil-thin line at <strong style="color:var(--moss)">May 1</strong>, when Strawberry Lemonade joined the menu, and the lone tower at <strong style="color:var(--rust)">July 5</strong> — a sunny Saturday that pulled in $1,998 alone, the year's high-water mark.</p>
+
+    <div class="chart-wrap">
+      <svg id="dailyChart" viewBox="0 0 1180 340" preserveAspectRatio="none" role="img" aria-label="Daily revenue across 2025"></svg>
+      <div class="chart-legend">
+        <span><i style="background:#9DC4B5"></i> &lt; 60°F </span>
+        <span><i style="background:#E9C87A"></i> 60–80°F </span>
+        <span><i style="background:#D9701E"></i> 80°F + </span>
+        <span><i style="background:repeating-linear-gradient(45deg,#5C4F42 0 3px, transparent 3px 6px)"></i> Rain ≥ 0.25"</span>
+        <span style="border-left:1px solid var(--ink); padding-left:14px">— May 1: Strawberry launch</span>
+        <span>— Jul 5: Best day, $1,998</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── FINDINGS ───────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 02 — Six Things You Wouldn't Notice</span>
+    </div>
+    <h2 class="section-title">Findings hidden in the <em>fine print</em>.</h2>
+
+    <div class="findings">
+
+      <!-- Finding 1: rev/operating day reframe -->
+      <div class="finding span-7 accent-citrus">
+        <span class="tag">Finding No. 1 · The Ranking Reframe</span>
+        <h3>By total revenue, Capitol Square wins.<br>By <em>productivity</em>, it isn't even close.</h3>
+        <p>Capitol Square is open 257 days a year and earns <strong>$254 a day</strong>. Tenney Park is open just 52 weekend days — but each of them brings in <strong>$945</strong>. The downtown stand looks like the breadwinner. The riverside cart is the workhorse.</p>
+        <div class="viz">
+          <svg viewBox="0 0 540 130" style="width:100%;height:auto">
+            <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#1A1410">
+              <!-- bars: rev/day -->
+              <text x="0" y="14">TENNEY PARK</text>
+              <rect x="0" y="20" width="500" height="14" fill="#1A1410"/>
+              <text x="510" y="32" text-anchor="end" fill="#FAF5E8">$945</text>
+
+              <text x="0" y="54">WESTSIDE FARMERS MKT</text>
+              <rect x="0" y="60" width="206" height="14" fill="#1E4A3D"/>
+              <text x="216" y="72" fill="#1A1410">$390 / day</text>
+
+              <text x="0" y="94">CAPITOL SQUARE</text>
+              <rect x="0" y="100" width="134" height="14" fill="#1E4A3D" opacity=".55"/>
+              <text x="144" y="112" fill="#1A1410">$254 / day</text>
+
+              <text x="280" y="94">EAST HIGH PLAZA</text>
+              <rect x="280" y="100" width="116" height="14" fill="#1E4A3D" opacity=".4"/>
+              <text x="406" y="112" fill="#1A1410">$221</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Finding 2: September > July -->
+      <div class="finding span-5">
+        <span class="tag">Finding No. 2 · Off-Peak Peak</span>
+        <h3>The biggest month wasn't <em>July</em>.<br>It was September.</h3>
+        <p><strong>September pulled $22,940</strong> — beating July ($18,821) and August ($20,452). Madison's mild back-to-school weather, plus the East High kiosk reopening, makes early autumn the secret high season. October ($19,983) outperformed June ($18,028).</p>
+        <div class="viz">
+          <svg id="monthlyChart" viewBox="0 0 480 110" style="width:100%;height:auto"></svg>
+        </div>
+      </div>
+
+      <!-- Finding 3: Strawberry launch -->
+      <div class="finding span-7 accent-moss">
+        <span class="tag">Finding No. 3 · The Strawberry Effect</span>
+        <h3>One new recipe became <em>27%</em> of the menu in seven months.</h3>
+        <p>Strawberry Lemonade launched May 1. Between then and year-end, it earned <strong>$37,142</strong> — more than a quarter of every dollar that crossed the counter post-launch. It overtook Classic Small in qty and now sits #2 by revenue, behind only Classic Large. New SKUs rarely move that fast.</p>
+        <div class="viz">
+          <div class="callout">$37,142<span class="unit">in 245 days · 6,753 cups</span></div>
+        </div>
+      </div>
+
+      <!-- Finding 4: Cookies -->
+      <div class="finding span-5">
+        <span class="tag">Finding No. 4 · Identity Crisis</span>
+        <h3>This is a "lemonade" business — but the <em>fourth-best seller</em> is a cookie.</h3>
+        <p>The Lemon Sugar Cookie sold <strong>7,428 units</strong> for $18,570. That's more cookies than any single beverage SKU except the two Classics. Worth re-reading the company name.</p>
+        <div class="viz">
+          <div class="callout">7,428<span class="unit">cookies sold</span></div>
+        </div>
+      </div>
+
+      <!-- Finding 5: weather effect -->
+      <div class="finding span-6">
+        <span class="tag">Finding No. 5 · Sun &amp; Rain</span>
+        <h3>An 80°F day is worth <em>1.8 cool days</em>. Rain costs 22%.</h3>
+        <p>Days where the high topped 80°F averaged <strong>$682</strong> in revenue; days under 60°F averaged $380. Heavy-rain days (≥ ¼") came in <strong>22% below</strong> dry days. Linda's instinct to schedule extra hours on hot Saturdays is empirically the right call.</p>
+        <div class="viz">
+          <svg viewBox="0 0 540 80" style="width:100%;height:auto">
+            <g font-family="IBM Plex Mono, monospace" font-size="11">
+              <text x="0" y="14" fill="#1A1410">HOT (≥80°F)</text>
+              <rect x="0" y="20" width="490" height="12" fill="#D9701E"/>
+              <text x="500" y="30" text-anchor="end" fill="#FAF5E8">$682</text>
+              <text x="0" y="54" fill="#1A1410">COOL (&lt;60°F)</text>
+              <rect x="0" y="60" width="273" height="12" fill="#9DC4B5"/>
+              <text x="280" y="70" fill="#1A1410">$380</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Finding 6: bimodal day -->
+      <div class="finding span-6">
+        <span class="tag">Finding No. 6 · Two Rushes</span>
+        <h3>The day has two peaks — <em>noon</em>, and again at <em>3pm</em>.</h3>
+        <p>Lunch (12pm: $29,039) and the after-school window (3pm: $28,584) are virtually tied. The 2pm dip is real, not noise — it's the gap between the downtown lunch crowd and the East High bell.</p>
+        <div class="viz">
+          <svg id="hourlyChart" viewBox="0 0 540 110" style="width:100%;height:auto"></svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ornament">— ✦ —</div>
+
+    <div class="pull">
+      <blockquote>If you ranked the staff by total revenue, you'd fire the one who covers shifts when no one else can.</blockquote>
+      <div class="attribution">— On why this dataset can't tell you who to fire —</div>
+    </div>
+  </section>
+
+  <!-- ───────── THE FOUR STANDS ───────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 03 — The Four Stands</span>
+    </div>
+    <h2 class="section-title">Each stand earns its keep on a <em>different schedule</em>.</h2>
+    <p class="leadp">Below: each stand ranked by revenue per operating day, with how long its season runs and how many of those days it takes to pay back the year's rent. The ranking flips for every metric you choose — that's the point.</p>
+
+    <div class="stands">
+      <!-- gold -->
+      <div class="stand-card gold">
+        <span class="rank">1</span>
+        <span class="chip">★ Highest yield</span>
+        <div class="name">Tenney Park</div>
+        <div class="type">Riverside park cart · Sat–Sun, May–Oct</div>
+        <hr>
+        <div class="row"><span>Revenue</span><b>$49,156</b></div>
+        <div class="row"><span>Open days</span><b>52</b></div>
+        <div class="row"><span>Per open day</span><b style="color:var(--rust)">$945</b></div>
+        <div class="payback">Rent paid back in <b>2.8 days</b>.</div>
+      </div>
+
+      <div class="stand-card">
+        <span class="rank">2</span>
+        <div class="name">Westside Farmers Market</div>
+        <div class="type">Saturday market stall · May–Oct</div>
+        <hr>
+        <div class="row"><span>Revenue</span><b>$10,128</b></div>
+        <div class="row"><span>Open days</span><b>26</b></div>
+        <div class="row"><span>Per open day</span><b>$390</b></div>
+        <div class="payback">Rent paid back in <b>26.7 days</b> — nearly the entire season.</div>
+      </div>
+
+      <div class="stand-card">
+        <span class="rank">3</span>
+        <div class="name">Capitol Square</div>
+        <div class="type">Downtown plaza kiosk · Mon–Fri year-round</div>
+        <hr>
+        <div class="row"><span>Revenue</span><b>$65,336</b></div>
+        <div class="row"><span>Open days</span><b>257</b></div>
+        <div class="row"><span>Per open day</span><b>$254</b></div>
+        <div class="payback">Top earner overall, but rent takes <b>35.8 days</b> to clear.</div>
+      </div>
+
+      <div class="stand-card">
+        <span class="rank">4</span>
+        <div class="name">East High Plaza</div>
+        <div class="type">Strip-mall kiosk · school-year afternoons</div>
+        <hr>
+        <div class="row"><span>Revenue</span><b>$39,257</b></div>
+        <div class="row"><span>Open days</span><b>178</b></div>
+        <div class="row"><span>Per open day</span><b>$221</b></div>
+        <div class="payback">Rent paid back in <b>28.3 days</b>. Reliant on the bell.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── PRODUCTS ───────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 04 — What People Bought</span>
+    </div>
+    <h2 class="section-title">The <em>menu</em>, ranked.</h2>
+    <p class="leadp">Eight SKUs. Two new entries this year — Strawberry Lemonade is already a hit, but Lavender Honey and Mint Cucumber Cooler combined didn't crack <strong>$7,000</strong>. They're slow movers, taking up shelf space and prep time. A candid menu review feels overdue.</p>
+
+    <div class="products" id="productsTable"></div>
+  </section>
+
+  <!-- ───────── DAYS & HOURS ───────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 05 — When People Bought</span>
+    </div>
+    <h2 class="section-title">A typical week, a typical <em>day</em>.</h2>
+
+    <div class="pair">
+      <div class="mini-chart">
+        <div class="lbl">Revenue by Day of Week</div>
+        <svg id="dowChart" viewBox="0 0 480 180" style="width:100%;height:auto"></svg>
+      </div>
+      <div class="mini-chart">
+        <div class="lbl">Revenue by Hour</div>
+        <svg id="hourFull" viewBox="0 0 480 180" style="width:100%;height:auto"></svg>
+      </div>
+    </div>
+    <p class="leadp" style="margin-top:18px">Saturday is the breadwinner of the week (<strong>$36,725</strong>) — 60% bigger than the average weekday, mostly thanks to Tenney Park and Westside Market both being weekend-only. The 12pm and 3pm twin peaks are a second story: a downtown lunch hour and an after-school surge that don't overlap, but together carry more than half the day's revenue.</p>
+  </section>
+
+  <!-- ───────── COLOPHON ───────── -->
+  <footer class="colophon">
+    <div>
+      <h4>About this report</h4>
+      <p>The Lemonade Annual is generated from one season's worth of point-of-sale, scheduling, and weather data — 38,558 line items across 24,655 transactions, joined to four stands, six employees, and 365 days of Madison weather. The numbers are real to the workbook; the workbook is synthetic, built for an AI demonstration. Any resemblance to actual lemonade businesses is, like a Saturday in July, coincidental and pleasant.</p>
+      <p>Charts hand-drawn in SVG. Set in <em>Fraunces</em> and <em>Newsreader</em>, with data in <em>IBM Plex Mono</em>. Pour responsibly.</p>
+    </div>
+    <div>
+      <h4>Owner / Operator</h4>
+      <p class="sig">Linda Chen</p>
+      <p>Capitol Square · Tenney Park ·<br>Westside Farmers Market · East High Plaza</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ─────────────── Embedded data ─────────────── */
+const DATA = {"total_rev":163875.5,"total_cogs":33124.45,"gross_profit":130751.05,"gross_margin_pct":79.8,"n_tickets":24655,"n_line_items":38558,"avg_ticket":6.65,"avg_items":1.67,"best_day":{"date":"Saturday, July 5","rev":1998.0,"hi":84.1,"cond":"Sunny"},"worst_day":{"date":"Monday, December 29","rev":80.0},"monthly":[{"month":1,"rev":6383.5},{"month":2,"rev":6110.5},{"month":3,"rev":6373.5},{"month":4,"rev":9080.5},{"month":5,"rev":21083.0},{"month":6,"rev":18027.5},{"month":7,"rev":18821.0},{"month":8,"rev":20451.5},{"month":9,"rev":22939.5},{"month":10,"rev":19983.0},{"month":11,"rev":7257.0},{"month":12,"rev":7365.0}],"peak_share":61.8,"stands":[{"id":"ST02","name":"Tenney Park","type":"Riverside park cart","rev":49156.0,"op_days":52,"rev_per_day":945.31,"rent_annual":2600,"days_to_cover_rent":2.8},{"id":"ST03","name":"Westside Farmers Market","type":"Saturday market stall","rev":10127.5,"op_days":26,"rev_per_day":389.52,"rent_annual":10400,"days_to_cover_rent":26.7},{"id":"ST01","name":"Capitol Square","type":"Downtown plaza kiosk","rev":65335.5,"op_days":257,"rev_per_day":254.22,"rent_annual":9100,"days_to_cover_rent":35.8},{"id":"ST04","name":"East High Plaza","type":"Strip-mall kiosk","rev":39256.5,"op_days":178,"rev_per_day":220.54,"rent_annual":6240,"days_to_cover_rent":28.3}],"sku":[{"sku":"LEM-L","name":"Classic Lemonade (Large 20oz)","qty":8290,"rev":41450.0},{"sku":"STR-L","name":"Strawberry Lemonade (Large 20oz)","qty":6753,"rev":37141.5},{"sku":"LEM-S","name":"Classic Lemonade (Small 12oz)","qty":8350,"rev":25050.0},{"sku":"COOK","name":"Lemon Sugar Cookie","qty":7428,"rev":18570.0},{"sku":"ARN","name":"Arnold Palmer (16oz)","qty":4468,"rev":17872.0},{"sku":"TEA","name":"Iced Tea (16oz)","qty":4844,"rev":16954.0},{"sku":"LAV","name":"Lavender Honey Lemonade (16oz)","qty":529,"rev":3438.5},{"sku":"MCC","name":"Mint Cucumber Cooler (16oz)","qty":523,"rev":3399.5}],"avg_hot_day":681.77,"avg_cool_day":380.07,"hot_vs_cool_mult":1.8,"avg_rain_day":426.08,"avg_dry_day":546.74,"rain_drag_pct":22.1,"strawberry_qty":6753,"strawberry_rev":37141.5,"strawberry_share_post":27.3,"hourly":[{"h":8,"rev":1680.0},{"h":9,"rev":2477.0},{"h":10,"rev":5730.5},{"h":11,"rev":10697.5},{"h":12,"rev":29039.0},{"h":13,"rev":26288.0},{"h":14,"rev":21816.5},{"h":15,"rev":28584.0},{"h":16,"rev":18941.0},{"h":17,"rev":11320.0},{"h":18,"rev":5875.5},{"h":19,"rev":1426.5}],"dow":[{"name":"Mon","rev":18378.0},{"name":"Tue","rev":21227.5},{"name":"Wed","rev":22465.0},{"name":"Thu","rev":19931.0},{"name":"Fri","rev":22590.5},{"name":"Sat","rev":36725.0},{"name":"Sun","rev":22558.5}],"daily_compact":[[0,26.4,0],[240,26.1,0],[187,25.7,0],[0,27.6,0],[0,28.3,0.66],[333,34.5,0],[130,31.8,0.75],[316,25,0],[294,10.7,0],[327,22.7,0],[0,25.7,0],[0,24.4,0.13],[246,22.4,0],[273,21.8,0],[349,30.7,0],[342,34.6,0],[146,31.7,0.15],[0,17.3,0],[0,29.7,0],[203,22.4,0],[340,21.7,0],[400,24.3,0],[332,27.6,0],[138,27.1,0.19],[0,33.5,0],[0,26,0],[300,25.4,0],[369,34.9,0],[366,22.7,0],[342,26.5,0],[409,27.2,0],[0,19.3,1.06],[0,35,0.84],[92,19.1,0.27],[322,36.3,0.26],[318,31.5,0],[273,23.7,0],[392,29.4,0],[0,21,0],[0,30.6,0],[275,35.7,0],[338,31.9,0],[376,29.1,0],[358,31.7,0],[351,34,0],[0,32.7,0],[0,24.8,0],[218,32.6,0],[360,29.7,0],[383,43.6,0],[306,43.7,0.27],[334,27.8,0],[0,18.1,0],[0,43,0],[278,22.3,0],[283,28.3,0],[406,39.3,0],[296,34.9,0.08],[152,25,0.88],[0,27.7,0],[0,26.1,0],[357,37.3,0],[374,31.3,0],[352,29.6,0],[318,38.1,0],[472,36.6,0],[0,39.8,0],[0,27.4,0],[124,28.5,0.05],[318,24.1,0],[386,35.8,0],[299,33,0],[383,33.1,0],[0,40,0],[0,37.4,0],[272,38.9,0],[366,40.8,0],[438,41.9,0],[348,39.8,0],[310,43,1.06],[0,51.4,0],[0,28.7,0],[144,45.3,0],[145,30.5,0],[242,44.2,0],[192,53.6,0.09],[242,37.5,0],[0,54.2,0],[0,46.9,1.31],[294,43.4,0.23],[416,44.3,0],[355,40.3,0.49],[449,59.6,0],[574,46.5,0],[0,44.1,0],[0,42.7,0],[306,43.7,0],[415,51.1,0],[494,46.4,0],[514,56.4,0],[440,45.8,0],[0,51.6,0.29],[0,47,0],[306,47.1,0.01],[389,51.8,0.21],[410,58.9,0.48],[246,48.1,0.56],[415,53.2,0.22],[0,60.3,0.11],[0,67.5,0],[337,45.7,0],[360,39.5,0],[488,59.1,0],[333,49.3,0.41],[464,57.1,0.03],[0,49.6,0.15],[0,54.2,0],[477,57,0],[392,54.8,0],[504,60.9,0],[552,58.8,0],[574,60.2,0],[768,52.4,0.23],[636,58.4,0],[452,58.2,0.39],[502,63.7,0],[715,70.6,0],[517,64,0.16],[828,63.4,0],[844,57.6,0.31],[774,69.5,0],[472,64.3,0],[594,68.2,0],[630,65.7,0],[469,69.7,0.68],[670,73.3,0.01],[1154,63.1,0],[999,75.3,0],[631,75.7,0],[694,74,0],[590,63,0],[442,71.2,1.3],[658,61.6,0],[614,61,0.66],[874,63.2,0],[287,68.6,0],[741,74,0],[674,68,0],[645,73.9,0],[577,82.2,1.18],[1506,80.4,0],[924,77.4,0],[494,76.4,0.35],[714,75.6,0],[617,73.4,0.12],[514,68.6,0.05],[634,64.3,0.26],[1532,72.3,0],[884,74.3,0.08],[390,77.9,0],[276,83.1,0.81],[346,74.6,0],[220,69.8,1.13],[375,77.7,0],[1225,84.3,0.33],[1216,80.8,0],[246,78,0.3],[362,69.4,0],[315,82.9,0],[321,77.7,0.09],[343,76.4,0],[1340,75.6,0.11],[914,76.3,0],[364,70,0],[296,85,0],[320,76.8,0.07],[316,76.1,0.05],[354,89.1,0],[1214,73,0.23],[657,80.1,0.04],[307,91.4,0],[282,77.8,0.02],[381,80.9,0],[330,74,0],[0,85.6,0],[1998,84.1,0],[1100,91.5,0],[360,77.6,0],[326,63.6,0],[390,79.8,0],[318,74.4,0],[434,74.5,0],[1510,89.8,0.32],[407,80.4,1.94],[374,87.5,0],[398,78.4,0],[446,90.5,0],[320,67.5,0],[408,85.1,0],[1954,78.4,0],[1183,79.6,0],[298,89.6,0],[297,75.6,0.48],[288,80.2,0.6],[364,91.5,0],[364,84.6,0],[1714,80.2,0],[1068,81.9,0],[400,72.5,0],[382,84.3,0],[374,78.5,0],[353,73.4,0],[312,82.1,0.4],[1676,69.2,0],[946,78.7,0],[386,82.2,0],[351,82.4,0.3],[400,76.1,0],[247,91.4,0.98],[417,86.3,0],[1960,80.4,0],[1026,81.1,0],[266,72.8,0.75],[304,75.4,0],[330,80.3,0],[392,87.3,0],[334,70.9,0.37],[1624,75.4,0],[856,81.3,0],[318,70.8,0],[372,82.9,0],[358,71,0],[294,82.2,0.06],[326,80.4,0],[1890,87.1,0],[1111,71.3,0],[352,88.4,0],[320,86.8,0],[301,78.2,0.31],[284,70.6,0],[260,66.1,0.11],[1382,69.7,0],[1054,78.7,0],[356,72.6,0],[512,79.3,0.87],[808,72.4,0],[757,73.1,0],[597,58.9,0.27],[1276,60.7,0],[972,80.8,0],[586,69.4,0],[424,65.1,0.75],[624,63.1,0],[686,73.7,0],[860,68.8,0],[1362,69.6,0],[690,70.4,0.06],[536,69.4,0.43],[604,70.3,0],[522,69,0.54],[634,58.7,0],[662,66.4,0],[1935,77.7,0],[794,70,0.26],[507,59.3,0],[754,71.6,0],[563,64.6,0],[634,73.9,0],[737,72.6,0],[1468,70,0],[776,64.9,0],[630,69.1,0],[676,71,0],[660,73.9,0],[516,54.8,0],[575,59.1,0],[1486,67.9,0],[596,53.8,0],[586,60.9,0],[518,62.8,0],[684,70.4,0],[544,57.3,0],[704,62.5,0],[1348,66.5,0],[700,62.9,0],[496,63.7,0],[465,54.8,0.02],[425,45.9,0],[510,54.5,0],[593,64,0.22],[980,52.8,0],[794,63.1,0],[457,52.4,0],[620,57.2,0],[472,46,0],[618,58.7,0],[699,65.3,0],[966,52.9,0],[609,56.1,0],[336,51.1,0.74],[534,50.3,0],[529,57.4,0],[444,46,0],[518,48.3,0],[0,48.3,0],[0,50.9,0],[364,37,0],[492,47,0],[415,51.7,0.23],[398,39.3,0],[340,40.1,0.71],[0,44.5,0],[0,39,0],[401,39.2,0],[394,40.4,0],[436,38.7,0],[404,41,0],[534,35.2,0],[0,38.3,0],[0,44.7,0],[376,48.3,0],[437,45.4,0],[380,37.1,0],[372,37.9,0],[460,37,0],[0,44.2,0],[0,29.8,0],[368,36.5,0],[292,33.3,0.74],[212,37.5,0],[0,38,0],[182,35.3,0],[0,37.5,0],[0,24.8,0],[360,33.1,0],[434,44.7,0],[416,24.8,0],[365,45,0],[484,38.3,0],[0,23.7,0],[0,39.9,0],[412,23.3,0],[374,36.6,0],[425,30.9,0],[314,37.8,0],[430,31.5,0],[0,28.8,0],[0,42.1,0.03],[374,30.4,0],[468,42,0],[388,36.3,0],[353,31.9,0],[344,25.4,0],[0,29.2,0],[0,43.3,0],[198,37.5,0],[190,20.5,0],[222,30.3,0],[0,21.4,0],[271,20.9,0],[0,29.3,0],[0,21.3,0],[80,27.3,1.08],[238,29.3,0],[227,27.2,0]]};
+
+/* ─────────────── Daily revenue chart ─────────────── */
+(function dailyChart(){
+  const svg = document.getElementById('dailyChart');
+  const W = 1180, H = 340, PAD_L = 36, PAD_R = 12, PAD_T = 16, PAD_B = 36;
+  const cw = W - PAD_L - PAD_R, ch = H - PAD_T - PAD_B;
+  const days = DATA.daily_compact;          // [rev, hi, precip] x 365
+  const n = days.length;
+  const maxRev = Math.max(...days.map(d => d[0]));
+  const yScale = v => PAD_T + ch - (v / maxRev) * ch;
+  const xScale = i => PAD_L + (i / (n - 1)) * cw;
+  const cwidth = cw / n;
+
+  const tempColor = hi => {
+    if (hi >= 80) return '#D9701E';
+    if (hi >= 60) return '#E9C87A';
+    return '#9DC4B5';
+  };
+
+  let html = '';
+
+  // Y gridlines & labels
+  const ticks = [0, 500, 1000, 1500, 2000];
+  ticks.forEach(t => {
+    const y = yScale(t);
+    html += `<line x1="${PAD_L}" x2="${W-PAD_R}" y1="${y}" y2="${y}" stroke="#1A1410" stroke-opacity=".12" stroke-width="1"/>`;
+    html += `<text x="${PAD_L-6}" y="${y+3.5}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5C4F42">$${t.toLocaleString()}</text>`;
+  });
+
+  // Vertical bars per day, colored by temp
+  days.forEach((d, i) => {
+    const [rev, hi, pr] = d;
+    if (rev === 0) return;
+    const x = xScale(i) - cwidth/2;
+    const y = yScale(rev);
+    const barH = (PAD_T + ch) - y;
+    const fill = tempColor(hi);
+    html += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(cwidth*.85, 1.2).toFixed(2)}" height="${barH.toFixed(2)}" fill="${fill}" />`;
+    if (pr >= 0.25){
+      // diagonal hatch overlay marker
+      html += `<line x1="${(x+cwidth/2).toFixed(2)}" y1="${y.toFixed(2)}" x2="${(x+cwidth/2).toFixed(2)}" y2="${(y+barH).toFixed(2)}" stroke="#5C4F42" stroke-width="0.6" stroke-dasharray="1.5 1.5"/>`;
+    }
+  });
+
+  // Strawberry launch line: May 1 = day index 120 (0-indexed; Jan 1 = 0)
+  const may1 = 120;
+  const my = PAD_T - 4, mY = PAD_T + ch;
+  const mx = xScale(may1);
+  html += `<line x1="${mx}" x2="${mx}" y1="${PAD_T}" y2="${mY}" stroke="#1E4A3D" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+  html += `<text x="${mx+5}" y="${PAD_T+12}" font-family="IBM Plex Mono, monospace" font-size="10" fill="#1E4A3D">MAY 1 · STRAWBERRY LAUNCH</text>`;
+
+  // Best day marker: July 5 = day-of-year. Jan(31)+Feb(28)+Mar(31)+Apr(30)+May(31)+Jun(30) = 181, +5 = 186 (1-indexed) → idx 185
+  const jul5 = 185;
+  const jx = xScale(jul5);
+  const jy = yScale(1998);
+  html += `<line x1="${jx}" x2="${jx}" y1="${jy-2}" y2="${jy-22}" stroke="#B5421B" stroke-width="1"/>`;
+  html += `<circle cx="${jx}" cy="${jy-25}" r="3" fill="#B5421B"/>`;
+  html += `<text x="${jx+8}" y="${jy-22}" font-family="IBM Plex Mono, monospace" font-size="10" fill="#B5421B">JUL 5 · $1,998</text>`;
+
+  // X axis: month tick marks
+  const monthStarts = [0,31,59,90,120,151,181,212,243,273,304,334];
+  const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  monthStarts.forEach((m, i) => {
+    const x = xScale(m);
+    html += `<line x1="${x}" x2="${x}" y1="${PAD_T+ch}" y2="${PAD_T+ch+5}" stroke="#1A1410" stroke-width="1"/>`;
+    html += `<text x="${x+3}" y="${PAD_T+ch+18}" font-family="IBM Plex Mono, monospace" font-size="10" fill="#1A1410" letter-spacing="1.5">${monthLabels[i].toUpperCase()}</text>`;
+  });
+
+  // Baseline
+  html += `<line x1="${PAD_L}" x2="${W-PAD_R}" y1="${PAD_T+ch}" y2="${PAD_T+ch}" stroke="#1A1410" stroke-width="1.2"/>`;
+
+  svg.innerHTML = html;
+})();
+
+/* ─────────────── Monthly bars (small) ─────────────── */
+(function monthlyChart(){
+  const svg = document.getElementById('monthlyChart');
+  const W = 480, H = 110, padL=4, padR=4, padT=4, padB=18;
+  const cw = W-padL-padR, ch = H-padT-padB;
+  const m = DATA.monthly;
+  const max = Math.max(...m.map(x=>x.rev));
+  const bw = cw/12 - 4;
+  const labels = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  let h = '';
+  m.forEach((mm, i) => {
+    const x = padL + i*(cw/12) + 2;
+    const bh = (mm.rev/max)*ch;
+    const y = padT + ch - bh;
+    const isSep = i === 8;
+    h += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${isSep ? '#B5421B' : '#1A1410'}" />`;
+    h += `<text x="${x+bw/2}" y="${padT+ch+12}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="${isSep?'#B5421B':'#5C4F42'}">${labels[i]}</text>`;
+  });
+  // baseline
+  h += `<line x1="${padL}" x2="${W-padR}" y1="${padT+ch}" y2="${padT+ch}" stroke="#1A1410" stroke-width="0.8"/>`;
+  // arrow at September
+  const sepX = padL + 8*(cw/12) + bw/2 + 2;
+  const sepY = padT + ch - (m[8].rev/max)*ch;
+  h += `<text x="${sepX}" y="${sepY-6}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B5421B">$22.9k</text>`;
+  svg.innerHTML = h;
+})();
+
+/* ─────────────── Hourly mini chart (in finding) ─────────────── */
+(function hourlyChart(){
+  const svg = document.getElementById('hourlyChart');
+  const W = 540, H = 110, padL=4, padR=4, padT=8, padB=20;
+  const cw = W-padL-padR, ch = H-padT-padB;
+  const hrs = DATA.hourly;
+  const max = Math.max(...hrs.map(h=>h.rev));
+  let html = '';
+  // area path
+  const xs = (i) => padL + (i/(hrs.length-1))*cw;
+  const ys = (v) => padT + ch - (v/max)*ch;
+  let path = `M ${xs(0)} ${padT+ch} `;
+  hrs.forEach((h, i) => { path += `L ${xs(i)} ${ys(h.rev)} `; });
+  path += `L ${xs(hrs.length-1)} ${padT+ch} Z`;
+  html += `<path d="${path}" fill="#F2BB1E" fill-opacity=".55" stroke="#1A1410" stroke-width="1.2" stroke-linejoin="round"/>`;
+  // peak markers
+  hrs.forEach((h, i) => {
+    if (h.h === 12 || h.h === 15){
+      html += `<circle cx="${xs(i)}" cy="${ys(h.rev)}" r="3" fill="#B5421B" stroke="#1A1410" stroke-width="0.8"/>`;
+      html += `<text x="${xs(i)}" y="${ys(h.rev)-7}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1A1410">${h.h===12?'12 PM':'3 PM'}</text>`;
+    }
+  });
+  // x labels
+  hrs.forEach((h, i) => {
+    if (i%2===0){
+      const lbl = h.h <= 12 ? `${h.h}` : `${h.h-12}`;
+      html += `<text x="${xs(i)}" y="${padT+ch+12}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#5C4F42">${lbl}</text>`;
+    }
+  });
+  svg.innerHTML = html;
+})();
+
+/* ─────────────── Hourly large chart ─────────────── */
+(function hourFull(){
+  const svg = document.getElementById('hourFull');
+  const W=480,H=180,padL=28,padR=8,padT=10,padB=24;
+  const cw=W-padL-padR, ch=H-padT-padB;
+  const hrs = DATA.hourly;
+  const max = Math.max(...hrs.map(h=>h.rev));
+  let html = '';
+  hrs.forEach((h, i) => {
+    const bw = cw/hrs.length - 3;
+    const x = padL + i*(cw/hrs.length) + 1.5;
+    const bh = (h.rev/max)*ch;
+    const y = padT+ch-bh;
+    const peak = h.h===12 || h.h===15;
+    html += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${peak?'#B5421B':'#F2BB1E'}" stroke="#1A1410" stroke-width=".8"/>`;
+    if (peak){
+      html += `<text x="${x+bw/2}" y="${y-3}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1A1410">$${(h.rev/1000).toFixed(0)}k</text>`;
+    }
+    const lbl = h.h <= 12 ? `${h.h}${h.h===12?'p':'a'}` : `${h.h-12}p`;
+    html += `<text x="${x+bw/2}" y="${padT+ch+13}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#5C4F42">${lbl}</text>`;
+  });
+  // Y axis
+  [0, 10000, 20000, 30000].forEach(t=>{
+    const y = padT+ch-(t/max)*ch;
+    html += `<line x1="${padL}" x2="${W-padR}" y1="${y}" y2="${y}" stroke="#1A1410" stroke-opacity=".15"/>`;
+    html += `<text x="${padL-4}" y="${y+3}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9" fill="#5C4F42">$${(t/1000)}k</text>`;
+  });
+  svg.innerHTML = html;
+})();
+
+/* ─────────────── DOW chart ─────────────── */
+(function dowChart(){
+  const svg = document.getElementById('dowChart');
+  const W=480,H=180,padL=36,padR=8,padT=10,padB=24;
+  const cw=W-padL-padR, ch=H-padT-padB;
+  const dow = DATA.dow;
+  const max = Math.max(...dow.map(d=>d.rev));
+  let html='';
+  dow.forEach((d, i) => {
+    const bw = cw/7 - 4;
+    const x = padL + i*(cw/7) + 2;
+    const bh = (d.rev/max)*ch;
+    const y = padT+ch-bh;
+    const isSat = d.name==='Sat';
+    html += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" fill="${isSat?'#1E4A3D':'#1A1410'}" />`;
+    html += `<text x="${x+bw/2}" y="${y-4}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1A1410">$${(d.rev/1000).toFixed(0)}k</text>`;
+    html += `<text x="${x+bw/2}" y="${padT+ch+13}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="${isSat?'#1E4A3D':'#5C4F42'}" letter-spacing="1">${d.name.toUpperCase()}</text>`;
+  });
+  [0,10000,20000,30000].forEach(t=>{
+    const y = padT+ch-(t/max)*ch;
+    html += `<line x1="${padL}" x2="${W-padR}" y1="${y}" y2="${y}" stroke="#1A1410" stroke-opacity=".15"/>`;
+    html += `<text x="${padL-4}" y="${y+3}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9" fill="#5C4F42">$${(t/1000)}k</text>`;
+  });
+  svg.innerHTML = html;
+})();
+
+/* ─────────────── Products table ─────────────── */
+(function products(){
+  const root = document.getElementById('productsTable');
+  const max = Math.max(...DATA.sku.map(s=>s.rev));
+  const dimSkus = new Set(['LAV','MCC']);
+  let html = '';
+  DATA.sku.forEach((s, i) => {
+    const w = (s.rev/max)*100;
+    const dim = dimSkus.has(s.sku);
+    html += `
+      <div class="product-row${dim?' dim':''}">
+        <div class="rank">${String(i+1).padStart(2,'0')}</div>
+        <div class="name">${s.name}<small>${s.sku}</small></div>
+        <div class="qty">${s.qty.toLocaleString()} sold</div>
+        <div class="rev">$${s.rev.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0})}</div>
+        <div class="bar"><i style="width:${w}%"></i></div>
+      </div>`;
+  });
+  root.innerHTML = html;
+})();
+
+</script>
+</body>
+</html>
